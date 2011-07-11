@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--
+          - Modify the host and port in the following two URLs to point at
+          - your own instance of the WebDX server.
+          -->
+        <script>var webdxServer = "http://example.com:8010/"</script>
+        <script src="http://example.com:8010/socket.io/socket.io.js"></script>
+
+        <!--
+         -  You shouldn't need to change anything below here for normal operation.
+         -->
+        <title>WebDX</title>
+        <meta name="viewport" content="width=770,user-scalable=no"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <link rel="stylesheet" href="webdx.css"/>
+        <script src="prototype.js"></script>
+        <script>
+            var socket;
+
+            function createCell(field, data) {
+                var new_cell = document.createElement('td');
+                new_cell.appendChild( document.createTextNode( ( data[field] || "" ) ) )
+
+                return new_cell;
+            }
+
+            function createRowFromJSON(data) {
+                var new_row = document.createElement('tr');
+                var spot_data = JSON.parse(data); 
+
+                new_row.appendChild( createCell( 'dx',      spot_data ) );
+                new_row.appendChild( createCell( 'spotter', spot_data ) );
+                new_row.appendChild( createCell( 'qrg',     spot_data ) );
+                new_row.appendChild( createCell( 'date',    spot_data ) );
+                new_row.appendChild( createCell( 'time',    spot_data ) );
+                new_row.appendChild( createCell( 'comment', spot_data ) );
+
+                if ( spot_data.source == 'bot' ) {
+                    new_row.addClassName('bot');
+                }
+                else if ( spot_data.qrg < 50000 ) {
+                    new_row.addClassName('hf');
+                }
+                else {
+                    new_row.addClassName('vhf');
+                }
+                return new_row;
+            }
+
+            document.observe("dom:loaded", function() {
+                socket = io.connect( webdxServer );
+
+                socket.on('spot', function (data) {
+                    $('spots').appendChild( createRowFromJSON( data ) );
+
+                    if ( $('spots').childElements().length > 20 ) {
+                        $('spots').childElements()[0].remove();
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <table id="spot_table">
+            <thead>
+                <tr>
+                    <th style="width: 12ex">DX</th>
+                    <th style="width: 7ex">Spotter</th>
+                    <th style="width: 11ex">QRG</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th style="width: 30ex">Comment</th>
+                </tr>
+            </thead>
+            <tbody id="spots">
+            </tbody>
+        </table>
+        <div id="footer">
+            <p>Powered by <a href="http://github.com/clarkema/webdx">WebDX</a> by Mike Clarke.</p>
+        </div>
+    </body>
+</html>
