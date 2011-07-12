@@ -32,7 +32,8 @@
 
                 new_row.appendChild( createCell( 'dx',      spot_data ) );
                 new_row.appendChild( createCell( 'spotter', spot_data ) );
-                new_row.appendChild( createCell( 'qrg',     spot_data ) );
+                new_row.appendChild(
+                    createCell( 'qrg',     spot_data ).addClassName( 'right' ) );
                 new_row.appendChild( createCell( 'date',    spot_data ) );
                 new_row.appendChild( createCell( 'time',    spot_data ) );
                 new_row.appendChild( createCell( 'comment', spot_data ) );

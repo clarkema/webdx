@@ -3,6 +3,10 @@ body {
     background: #464646;
 }
 
+.right {
+    text-align: right;
+}
+
 table {
     border-spacing: 0;
 }
