@@ -19,12 +19,16 @@ node.js and npm globally.
 
 1. Install system-level dependencies.
 
-    aptitude install git python build-essential libssl-dev
+```
+aptitude install git python build-essential libssl-dev
+```
 
 2. Make a directory to contain everything we'll need to run WebDX:
 
-    sudo mkdir -p /opt/webdx
-    sudo chown $USER /opt/webdx
+```
+sudo mkdir -p /opt/webdx
+sudo chown $USER /opt/webdx
+```
 
 3. Temporarily add the directory that we're going to install the node.js
    binary into to our PATH.  We'll need this to be able to install and
