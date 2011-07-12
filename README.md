@@ -36,7 +36,7 @@ node.js and npm globally.
         export PATH=$PATH:/opt/webdx/bin
 
 4. WebDX depends on node.js and its package manager (npm).  Start by
-   downloading and install node.js.
+   downloading and installing node.js.
 
         mkdir ~/git
         cd ~/git
@@ -65,13 +65,9 @@ Configuration
 -------------
 
 At this point everything is in place.  Edit /opt/webdx/webdx/webdx.js
-and follow the comments to configure the port you want to listen on, and 
-the cluster nodes you want to connect to.
+and /opt/webdx/webdx/web/index.html; follow the comments in the files.
 
-Edit /opt/webdx/webdx/web/index.html and follow the comments to
-configure the URL you'll be using.
-
-You need to contrive some way to have your webserver make
+You also need to contrive some way to have your webserver make
 /opt/webdx/webdx/web available; generally this is done via an alias
 directive.
 
