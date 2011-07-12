@@ -73,7 +73,7 @@ directive.
 
 On lighttpd:
 
-    alias.url = ( "/webdx/" => "/opt/webdx/webdx/web/" )
+    alias.url = ( "/webdx" => "/opt/webdx/webdx/web" )
 
 On Apache:
 
