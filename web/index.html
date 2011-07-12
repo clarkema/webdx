@@ -28,20 +28,19 @@
 
             function createRowFromJSON(data) {
                 var new_row = document.createElement('tr');
-                var spot_data = JSON.parse(data); 
 
-                new_row.appendChild( createCell( 'dx',      spot_data ) );
-                new_row.appendChild( createCell( 'spotter', spot_data ) );
+                new_row.appendChild( createCell( 'dx',      data ) );
+                new_row.appendChild( createCell( 'spotter', data ) );
                 new_row.appendChild(
-                    createCell( 'qrg',     spot_data ).addClassName( 'right' ) );
-                new_row.appendChild( createCell( 'date',    spot_data ) );
-                new_row.appendChild( createCell( 'time',    spot_data ) );
-                new_row.appendChild( createCell( 'comment', spot_data ) );
+                    createCell( 'qrg', data ).addClassName( 'right' ) );
+                new_row.appendChild( createCell( 'date',    data ) );
+                new_row.appendChild( createCell( 'time',    data ) );
+                new_row.appendChild( createCell( 'comment', data ) );
 
-                if ( spot_data.source == 'bot' ) {
+                if ( data.source == 'bot' ) {
                     new_row.addClassName('bot');
                 }
-                else if ( spot_data.qrg < 50000 ) {
+                else if ( data.qrg < 50000 ) {
                     new_row.addClassName('hf');
                 }
                 else {
@@ -54,7 +53,13 @@
                 socket = io.connect( webdxServer );
 
                 socket.on('spot', function (data) {
-                    $('spots').appendChild( createRowFromJSON( data ) );
+                    var spotJson = JSON.parse(data);
+
+                    if ( $('display-rbn-p').checked ||
+                         ( ! $('display-rbn-p').checked && spotJson.source != "bot" ) )
+                    {
+                        $('spots').appendChild( createRowFromJSON( spotJson ) );
+                    }
 
                     if ( $('spots').childElements().length > 20 ) {
                         $('spots').childElements()[0].remove();
@@ -68,6 +73,10 @@
         </script>
     </head>
     <body>
+        <div id="controls">
+            <input type="checkbox" id="display-rbn-p"/>
+            <label for="display-rbn-p">Show <a href="http://reversebeacon.net/">RBN</a> spots?</label>
+        </div>
         <table id="spot_table">
             <thead>
                 <tr>

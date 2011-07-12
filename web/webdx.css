@@ -1,6 +1,9 @@
 body {
     font-family: Helvetica, Arial, sans-serif;
     background: #464646;
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .right {
@@ -9,12 +12,6 @@ body {
 
 table {
     border-spacing: 0;
-}
-
-#spot_table {
-    width: 750px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 #spot_table th:first-child {
@@ -62,4 +59,13 @@ tr.hf {
 }
 tr.bot {
     background-color: #98FB98;
+}
+
+#controls {
+    color: white;
+    font-size: small;
+    padding-bottom: 1em;
+}
+#control a {
+    color: white;
 }
