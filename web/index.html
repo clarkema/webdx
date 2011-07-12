@@ -59,6 +59,10 @@
                         $('spots').childElements()[0].remove();
                     }
                 });
+
+                socket.on('client-count', function (data) {
+                    $('client-count').update( data + " client" + (data > 1 ? "s" : "") + " connected." );
+                });
             });
         </script>
     </head>
@@ -79,6 +83,7 @@
         </table>
         <div id="footer">
             <p>Powered by <a href="http://github.com/clarkema/webdx">WebDX</a> by Mike Clarke.</p>
+            <p id="client-count"></p>
         </div>
     </body>
 </html>

@@ -43,6 +43,15 @@ rbn.on( 'data', function (chunk) { processSpot("bot", chunk) } );
  */
 
 var io = require('socket.io').listen( listenPort );
+var activeClients = 0;
+
+io.sockets.on( 'connection', function ( socket ) {
+    io.sockets.emit( 'client-count', ++activeClients );
+
+    socket.on( 'disconnect', function() {
+        io.sockets.emit( 'client-count', --activeClients );
+    });
+});
 
 function spiderConnection( host, port, username ) {
     var client = net.createConnection( port, host );
